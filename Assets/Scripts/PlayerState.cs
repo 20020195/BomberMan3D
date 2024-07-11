@@ -38,7 +38,7 @@ public class PlayerState : NetworkBehaviour
     IEnumerator WaitForRevival()
     {
         Debug.Log(Time.time);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         
         animator.SetTrigger("normal");
         transform.position = new Vector3(0, transform.position.y, 0);

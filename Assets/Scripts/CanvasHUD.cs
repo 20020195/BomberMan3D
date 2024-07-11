@@ -16,6 +16,20 @@ public class CanvasHUD : MonoBehaviour
     public Text serverText;
     public Text clientText;
 
+    public static CanvasHUD instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
 
     private void Start()
     {

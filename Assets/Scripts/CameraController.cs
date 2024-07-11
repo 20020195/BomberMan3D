@@ -22,6 +22,11 @@ public class CameraController: MonoBehaviour
 
     private void Update()
     {
+        if (camFollowPlane.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         if (Input.GetKeyDown(KeyCode.V))
         {
             if (camFollowPlane.activeSelf)
@@ -42,7 +47,6 @@ public class CameraController: MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
         }
-        // write script//
 
         if (!camFollowPlane.activeSelf && !camWhenDead.activeSelf)
         {

@@ -7,13 +7,13 @@ public class PlayerController : NetworkBehaviour
 {
     public GameObject bombPrefab;
 
-    private bool canPlaceBomb;
+    private bool canPlaceBomb = true;
     [SerializeField]
     private float timeDelay;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canPlaceBomb == false)
+        if (Input.GetKeyDown(KeyCode.Space) && canPlaceBomb != false)
         {
             CmdBomb();
         }
@@ -28,7 +28,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void SpawnBomb()
     {
-        canPlaceBomb = true;
+        canPlaceBomb = false;
 
         GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
         bomb.transform.position = new Vector3(bomb.transform.position.x, 0.5f, bomb.transform.position.z);
@@ -38,6 +38,6 @@ public class PlayerController : NetworkBehaviour
     IEnumerator PlaceBombCoroutine()
     {
         yield return new WaitForSeconds(timeDelay);
-        canPlaceBomb = false;
+        canPlaceBomb = true;
     }
 }

@@ -34,13 +34,12 @@ public class PlayerMove : NetworkBehaviour
     {
         PlayerInput controls = new PlayerInput();
         controls.Disable();
+        moveInput = Vector2.zero;
     }
     
     void FixedUpdate()
     {
         Speed = moveInput.sqrMagnitude;
-
-        //Physically move player
 
         if (Speed > 0.1f)
         {

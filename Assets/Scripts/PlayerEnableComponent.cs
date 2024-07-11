@@ -14,8 +14,12 @@ public class PlayerEnableComponent : NetworkBehaviour
         if (isLocalPlayer)
         {
             GetComponent<PlayerController>().enabled = true;
-            GetComponent<PlayerMove>().enabled = true;
             GetComponent<PlayerState>().enabled = true;
+#if UNITY_ANDROID
+            GetComponent<AndroidPlayerController>().enabled = true;
+#else
+            GetComponent<PlayerMove>().enabled = true;
+#endif
 
 
             GameObject cfp = Camera.main.GetComponent<CameraController>().camWhenDead;

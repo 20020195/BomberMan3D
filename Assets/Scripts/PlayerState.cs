@@ -17,11 +17,14 @@ public class PlayerState : NetworkBehaviour
     {
         if (hp <= 0 && isLocalPlayer)
         {
+#if UNITY_ANDROID
+            GetComponent<AndroidPlayerController>().enabled = false;
+#else
             GetComponent<PlayerMove>().enabled = false;
+#endif
             GetComponent<PlayerController>().enabled = false;
             GetComponent<Collider>().enabled = false;
             Camera.main.GetComponent<CameraController>().SetCamWhenDie();
-            //Destroy(gameObject, 5f);
         }
     }
     public void GetDameExplode(int dame)
@@ -30,6 +33,7 @@ public class PlayerState : NetworkBehaviour
 
         if (hp <= 0)
         {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
             animator.SetTrigger("dead");
             StartCoroutine(WaitForRevival());
         }
@@ -44,7 +48,11 @@ public class PlayerState : NetworkBehaviour
         transform.position = new Vector3(0, transform.position.y, 0);
         hp = 100;
 
-        GetComponent<PlayerMove>().enabled = true;
+#if UNITY_ANDROID
+        GetComponent<AndroidPlayerController>().enabled = true;
+#else
+            GetComponent<PlayerMove>().enabled = true;
+#endif
         GetComponent<PlayerController>().enabled = true;
         GetComponent<Collider>().enabled = true;
         Camera.main.GetComponent<CameraController>().SetCamWhenRevival();
